@@ -1,0 +1,1161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>The Chamber Tea — Room of Matcha</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/*──────────────────────── tokens ────────────────────────*/
+:root{
+  --cream:        #F4ECDF;
+  --cream-deep:   #ECE1CC;
+  --cream-warm:   #E7DAC0;
+  --ink:          #2A2620;
+  --ink-soft:     #5A4E3F;
+  --ink-mute:     #8A7C6A;
+  --line:         #D4C6AC;
+  --matcha:       #4F5E3A;
+  --matcha-deep:  #36421E;
+  --serif:  'Cormorant Garamond', 'EB Garamond', Georgia, serif;
+  --sans:   'Inter', system-ui, sans-serif;
+  --max:    1400px;
+  --gutter: clamp(20px, 4vw, 56px);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;background:var(--cream)}
+body{
+  font-family:var(--sans);
+  color:var(--ink);
+  background:var(--cream);
+  -webkit-font-smoothing:antialiased;
+  font-weight:400;
+  line-height:1.6;
+  font-size:16px;
+  letter-spacing:.005em;
+  overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+
+.serif{font-family:var(--serif);font-weight:400;letter-spacing:-.01em}
+.eyebrow{
+  font-family:var(--sans);
+  text-transform:uppercase;
+  font-size:11px;
+  letter-spacing:.28em;
+  color:var(--ink-soft);
+  font-weight:500;
+}
+.divider{height:1px;background:var(--line);width:100%}
+
+/*──────────────────────── progress bar ────────────────────────*/
+.progress{
+  position:fixed;top:0;left:0;height:2px;width:0;
+  background:var(--ink);z-index:200;transition:width .1s linear;
+}
+
+/*──────────────────────── nav ────────────────────────*/
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:18px var(--gutter);
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(244,236,223,.78);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  transition:padding .3s ease, background .3s ease, border-color .3s ease;
+  border-bottom:1px solid transparent;
+}
+.nav.scrolled{padding:12px var(--gutter);border-bottom-color:var(--line)}
+.nav-brand{
+  font-family:var(--serif);
+  font-size:22px;
+  letter-spacing:-.01em;
+  display:flex;align-items:center;gap:10px;
+}
+.nav-brand .dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--matcha);
+  display:inline-block;
+}
+.nav-links{display:flex;gap:36px;align-items:center}
+.nav-link{
+  font-size:13px;letter-spacing:.04em;color:var(--ink-soft);
+  transition:color .2s ease;position:relative;padding:6px 0;
+}
+.nav-link:hover{color:var(--ink)}
+.nav-link::after{
+  content:"";position:absolute;left:0;right:100%;bottom:0;
+  height:1px;background:var(--ink);transition:right .3s ease;
+}
+.nav-link:hover::after{right:0}
+.nav-cta{
+  font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+  padding:11px 20px;border:1px solid var(--ink);border-radius:999px;
+  transition:background .25s ease, color .25s ease;
+}
+.nav-cta:hover{background:var(--ink);color:var(--cream)}
+.nav-mobile{display:none}
+
+@media (max-width:880px){
+  .nav-links{display:none}
+  .nav-mobile{display:flex;align-items:center;gap:14px}
+  .nav-cta{padding:9px 14px;font-size:11px;letter-spacing:.12em}
+}
+
+/*──────────────────────── hero ────────────────────────*/
+.hero{
+  min-height:100vh;
+  padding:120px var(--gutter) 60px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:60px;
+  align-items:center;
+  position:relative;
+}
+.hero-words{
+  display:flex;justify-content:space-between;
+  font-family:var(--serif);font-size:clamp(14px,1.2vw,18px);
+  color:var(--ink-soft);
+  position:absolute;top:90px;left:var(--gutter);right:var(--gutter);
+  letter-spacing:.02em;
+}
+.hero-words span:nth-child(2){font-style:italic}
+
+.hero-left{padding-top:40px}
+.hero-title{
+  font-family:var(--serif);
+  font-size:clamp(56px,9vw,140px);
+  line-height:.92;
+  letter-spacing:-.02em;
+  font-weight:400;
+}
+.hero-title .it{font-style:italic;font-weight:300;color:var(--ink-soft)}
+.hero-title .macron{display:inline-block}
+.hero-sub{
+  margin-top:36px;max-width:440px;
+  font-size:17px;line-height:1.55;color:var(--ink-soft);
+}
+.hero-meta{
+  margin-top:48px;display:flex;gap:32px;align-items:center;
+  font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink-mute);
+}
+.hero-meta .pulse{
+  width:7px;height:7px;border-radius:50%;background:var(--matcha);
+  display:inline-block;margin-right:8px;
+  box-shadow:0 0 0 0 rgba(79,94,58,.6);
+  animation:pulse 2.6s infinite;
+}
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(79,94,58,.55)}
+  70%{box-shadow:0 0 0 12px rgba(79,94,58,0)}
+  100%{box-shadow:0 0 0 0 rgba(79,94,58,0)}
+}
+.hero-cta-row{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:14px 26px;border-radius:999px;
+  font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+  transition:all .25s ease;cursor:pointer;
+}
+.btn-primary{background:var(--ink);color:var(--cream)}
+.btn-primary:hover{background:var(--matcha-deep);transform:translateY(-1px)}
+.btn-ghost{border:1px solid var(--ink);color:var(--ink)}
+.btn-ghost:hover{background:var(--ink);color:var(--cream)}
+.btn .arrow{transition:transform .25s ease}
+.btn:hover .arrow{transform:translateX(4px)}
+
+.hero-right{position:relative;display:flex;justify-content:center;align-items:center;min-height:520px}
+.hero-bowl{
+  width:min(78%,520px);
+  filter:contrast(1.02);
+  animation:floaty 9s ease-in-out infinite;
+}
+@keyframes floaty{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-12px)}
+}
+.hero-stamp{
+  position:absolute;
+  bottom:0;right:0;
+  width:120px;height:120px;
+  border:1px solid var(--ink-soft);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  text-align:center;
+  font-family:var(--serif);font-style:italic;font-size:13px;
+  color:var(--ink-soft);line-height:1.3;padding:14px;
+  animation:rotateSlow 40s linear infinite;
+}
+@keyframes rotateSlow{to{transform:rotate(360deg)}}
+.hero-stamp .inner{transform:rotate(0)}
+
+@media (max-width:880px){
+  .hero{grid-template-columns:1fr;padding-top:140px;gap:0}
+  .hero-words{position:static;margin-bottom:30px}
+  .hero-right{min-height:340px;order:2;margin-top:40px}
+  .hero-stamp{width:90px;height:90px;font-size:11px;right:10px}
+}
+
+/*──────────────────────── marquee ────────────────────────*/
+.marquee{
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  background:var(--cream);
+  overflow:hidden;
+  padding:22px 0;
+}
+.marquee-track{
+  display:flex;gap:80px;
+  white-space:nowrap;
+  animation:marquee 38s linear infinite;
+  font-family:var(--serif);font-size:22px;color:var(--ink-soft);
+  font-style:italic;
+}
+.marquee-track span{display:flex;align-items:center;gap:80px}
+.marquee-track .dot{
+  width:6px;height:6px;border-radius:50%;background:var(--matcha);
+}
+@keyframes marquee{
+  from{transform:translateX(0)}
+  to{transform:translateX(-50%)}
+}
+
+/*──────────────────────── section base ────────────────────────*/
+section.block{
+  padding:clamp(80px,10vw,160px) var(--gutter);
+  max-width:var(--max);
+  margin:0 auto;
+}
+.section-head{
+  display:grid;grid-template-columns:200px 1fr;gap:60px;
+  margin-bottom:72px;align-items:start;
+}
+.section-head .num{
+  font-family:var(--serif);font-style:italic;font-size:18px;
+  color:var(--ink-soft);
+}
+.section-head h2{
+  font-family:var(--serif);
+  font-size:clamp(40px,5vw,68px);
+  line-height:1;letter-spacing:-.015em;font-weight:400;
+  max-width:14ch;
+}
+.section-head h2 .it{font-style:italic;color:var(--ink-soft);font-weight:300}
+@media (max-width:760px){
+  .section-head{grid-template-columns:1fr;gap:18px;margin-bottom:48px}
+}
+
+/*──────────────────────── about ────────────────────────*/
+.about{background:var(--cream-deep)}
+.about-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;
+}
+.about-text p{
+  font-size:17px;line-height:1.65;color:var(--ink-soft);
+  margin-bottom:20px;max-width:48ch;
+}
+.about-text p.lead{
+  font-family:var(--serif);font-size:28px;line-height:1.35;color:var(--ink);
+  margin-bottom:28px;max-width:24ch;
+}
+.about-stats{
+  display:grid;grid-template-columns:1fr 1fr;gap:32px;
+  margin-top:48px;padding-top:36px;border-top:1px solid var(--line);
+}
+.stat .k{
+  font-family:var(--serif);font-size:42px;line-height:1;
+  color:var(--ink);margin-bottom:8px;
+}
+.stat .l{
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink-mute);
+}
+
+.about-side{position:relative}
+.about-quote{
+  background:var(--cream);
+  border:1px solid var(--line);
+  padding:40px 36px;
+  border-radius:6px;
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:24px;line-height:1.4;
+  color:var(--ink);
+  position:relative;
+}
+.about-quote::before{
+  content:"\201C";
+  position:absolute;top:-30px;left:24px;
+  font-family:var(--serif);font-size:120px;
+  color:var(--matcha);line-height:1;font-style:normal;
+}
+.about-quote .cite{
+  display:block;margin-top:18px;
+  font-family:var(--sans);font-style:normal;font-size:11px;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink-mute);
+}
+.about-profile{
+  margin-top:36px;display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  background:var(--line);border:1px solid var(--line);
+}
+.profile-item{background:var(--cream-deep);padding:22px 24px}
+.profile-item .l{
+  font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink-mute);margin-bottom:6px;
+}
+.profile-item .v{font-family:var(--serif);font-size:20px;color:var(--ink)}
+
+@media (max-width:880px){
+  .about-grid{grid-template-columns:1fr;gap:48px}
+}
+
+/*──────────────────────── philosophy / pillars ────────────────────────*/
+.pillars{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+.pillar{
+  padding:60px 40px;
+  border-right:1px solid var(--line);
+  transition:background .35s ease;
+}
+.pillar:last-child{border-right:none}
+.pillar:hover{background:var(--cream-deep)}
+.pillar .ico{
+  width:46px;height:46px;
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid var(--ink-soft);border-radius:50%;
+  margin-bottom:32px;
+  font-family:var(--serif);font-style:italic;font-size:18px;
+  color:var(--ink-soft);
+}
+.pillar h3{
+  font-family:var(--serif);font-size:30px;font-weight:400;
+  line-height:1.1;margin-bottom:16px;letter-spacing:-.01em;
+}
+.pillar p{font-size:15px;color:var(--ink-soft);line-height:1.6}
+@media (max-width:880px){
+  .pillars{grid-template-columns:1fr}
+  .pillar{border-right:none;border-bottom:1px solid var(--line)}
+  .pillar:last-child{border-bottom:none}
+}
+
+/*──────────────────────── menu ────────────────────────*/
+.menu{background:var(--cream-warm)}
+.menu-head{
+  display:flex;justify-content:space-between;align-items:end;
+  flex-wrap:wrap;gap:30px;margin-bottom:48px;
+}
+.menu-tabs{display:flex;gap:6px;flex-wrap:wrap}
+.menu-tab{
+  padding:10px 20px;border-radius:999px;
+  font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-soft);border:1px solid transparent;
+  transition:all .2s ease;cursor:pointer;
+}
+.menu-tab:hover{color:var(--ink)}
+.menu-tab.active{
+  background:var(--ink);color:var(--cream);
+}
+.menu-list{display:grid;grid-template-columns:1fr 1fr;gap:0 80px}
+.menu-item{
+  display:grid;grid-template-columns:1fr auto;gap:14px;
+  padding:24px 0;border-bottom:1px dashed var(--line);
+  align-items:start;
+  cursor:default;
+  transition:padding .25s ease;
+}
+.menu-item:hover{padding-left:8px}
+.menu-item .name{
+  font-family:var(--serif);font-size:26px;line-height:1.1;
+  color:var(--ink);margin-bottom:6px;letter-spacing:-.005em;
+}
+.menu-item .desc{font-size:13px;color:var(--ink-soft);max-width:42ch;line-height:1.5}
+.menu-item .price{
+  font-family:var(--serif);font-size:20px;color:var(--ink);
+  white-space:nowrap;font-variant-numeric:tabular-nums;
+}
+.menu-item .price .sm{font-size:12px;color:var(--ink-mute);margin-right:4px}
+.menu-tag{
+  display:inline-block;
+  font-size:9px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--matcha-deep);background:rgba(79,94,58,.12);
+  padding:3px 8px;border-radius:3px;margin-left:8px;
+  vertical-align:middle;
+}
+@media (max-width:760px){
+  .menu-list{grid-template-columns:1fr;gap:0}
+}
+.menu-foot{
+  margin-top:48px;padding-top:32px;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;
+  font-size:13px;color:var(--ink-soft);
+}
+
+/*──────────────────────── gallery ────────────────────────*/
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  grid-auto-rows:140px;
+  gap:14px;
+}
+.tile{
+  background:var(--cream-deep);
+  border:1px solid var(--line);
+  position:relative;overflow:hidden;
+  cursor:pointer;
+  transition:transform .4s cubic-bezier(.2,.7,.2,1), box-shadow .4s ease;
+}
+.tile:hover{transform:translateY(-4px);box-shadow:0 18px 30px -22px rgba(42,38,32,.4)}
+.tile .ph{
+  position:absolute;inset:0;
+  background:
+    repeating-linear-gradient(135deg,
+      transparent 0 14px,
+      rgba(42,38,32,.04) 14px 15px);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:18px;
+}
+.tile .ph .lbl{
+  font-family:'JetBrains Mono', ui-monospace, monospace;
+  font-size:10px;letter-spacing:.14em;color:var(--ink-mute);
+  text-transform:uppercase;
+}
+.tile .ph .ttl{
+  font-family:var(--serif);font-style:italic;
+  font-size:20px;color:var(--ink);margin-bottom:4px;
+}
+.tile .corner{
+  position:absolute;top:14px;right:14px;
+  font-family:'JetBrains Mono', ui-monospace, monospace;
+  font-size:10px;color:var(--ink-mute);letter-spacing:.1em;
+}
+.tile.t1{grid-column:span 5;grid-row:span 3}
+.tile.t2{grid-column:span 4;grid-row:span 2}
+.tile.t3{grid-column:span 3;grid-row:span 2}
+.tile.t4{grid-column:span 4;grid-row:span 2}
+.tile.t5{grid-column:span 3;grid-row:span 3}
+.tile.t6{grid-column:span 5;grid-row:span 2}
+.tile.bowl{
+  background:var(--cream);
+  background-image:url('assets/bowl-cream.jpg');
+  background-size:cover;background-position:center;
+}
+.tile.bowl .ph{background:linear-gradient(180deg,transparent 50%,rgba(244,236,223,.92));}
+@media (max-width:760px){
+  .gallery-grid{grid-template-columns:repeat(6,1fr);grid-auto-rows:120px}
+  .tile.t1,.tile.t2,.tile.t3,.tile.t4,.tile.t5,.tile.t6{grid-column:span 6;grid-row:span 2}
+}
+
+/*──────────────────────── find us ────────────────────────*/
+.find{background:var(--ink);color:var(--cream)}
+.find .section-head h2{color:var(--cream)}
+.find .section-head h2 .it{color:var(--cream-warm);opacity:.7}
+.find .section-head .num{color:var(--cream-warm);opacity:.6}
+.find-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:64px;align-items:start}
+.find-card{
+  border:1px solid rgba(244,236,223,.18);
+  padding:36px 32px;border-radius:6px;
+  background:rgba(244,236,223,.03);
+  margin-bottom:18px;
+}
+.find-card h4{
+  font-family:var(--serif);font-weight:400;font-size:22px;
+  margin-bottom:14px;letter-spacing:-.005em;
+}
+.find-card p, .find-card .row{font-size:14px;color:rgba(244,236,223,.7);line-height:1.7}
+.hours-row{
+  display:flex;justify-content:space-between;
+  font-size:14px;padding:6px 0;
+  border-bottom:1px solid rgba(244,236,223,.1);
+}
+.hours-row:last-child{border-bottom:none}
+.hours-row .day{color:rgba(244,236,223,.6)}
+.hours-row .t{font-variant-numeric:tabular-nums;color:var(--cream)}
+
+.find-map{
+  aspect-ratio:1/1;
+  position:relative;
+  border:1px solid rgba(244,236,223,.18);
+  overflow:hidden;border-radius:6px;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(79,94,58,.18), transparent 50%),
+    radial-gradient(circle at 70% 70%, rgba(244,236,223,.06), transparent 50%),
+    #1e1b16;
+}
+.find-map svg{position:absolute;inset:0;width:100%;height:100%}
+.map-marker{
+  position:absolute;top:48%;left:52%;
+  transform:translate(-50%,-100%);
+  display:flex;flex-direction:column;align-items:center;
+}
+.map-marker .pin{
+  width:14px;height:14px;border-radius:50%;
+  background:var(--matcha);border:3px solid var(--cream);
+  box-shadow:0 0 0 0 rgba(79,94,58,.5);
+  animation:pulse 2s infinite;
+}
+.map-marker .lbl{
+  margin-top:10px;
+  font-family:var(--serif);font-style:italic;font-size:14px;
+  background:var(--cream);color:var(--ink);
+  padding:5px 12px;border-radius:999px;
+  white-space:nowrap;
+}
+@media (max-width:880px){
+  .find-grid{grid-template-columns:1fr;gap:32px}
+  .find-map{aspect-ratio:4/3}
+}
+
+/*──────────────────────── footer ────────────────────────*/
+.cta-strip{
+  text-align:center;padding:120px var(--gutter);
+  background:var(--cream-deep);
+}
+.cta-strip .eyebrow{margin-bottom:24px;display:block}
+.cta-strip h2{
+  font-family:var(--serif);font-weight:400;
+  font-size:clamp(48px,7vw,96px);line-height:1;
+  letter-spacing:-.02em;max-width:18ch;margin:0 auto 36px;
+}
+.cta-strip h2 .it{font-style:italic;color:var(--ink-soft);font-weight:300}
+
+footer{
+  background:var(--cream);
+  padding:80px var(--gutter) 40px;
+  border-top:1px solid var(--line);
+}
+.foot-grid{
+  max-width:var(--max);margin:0 auto;
+  display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;
+  padding-bottom:48px;border-bottom:1px solid var(--line);
+}
+.foot-brand{font-family:var(--serif);font-size:32px;line-height:1;margin-bottom:14px}
+.foot-tag{color:var(--ink-soft);font-size:14px;max-width:32ch;line-height:1.5}
+.foot-col h5{
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink-mute);margin-bottom:18px;font-weight:500;
+}
+.foot-col a, .foot-col p{
+  display:block;font-size:14px;color:var(--ink-soft);
+  padding:4px 0;transition:color .2s ease;
+}
+.foot-col a:hover{color:var(--ink)}
+.foot-bottom{
+  max-width:var(--max);margin:0 auto;padding-top:32px;
+  display:flex;justify-content:space-between;
+  flex-wrap:wrap;gap:14px;
+  font-size:12px;color:var(--ink-mute);
+}
+.foot-bottom .made{font-family:var(--serif);font-style:italic}
+@media (max-width:760px){
+  .foot-grid{grid-template-columns:1fr 1fr;gap:32px}
+}
+
+/*──────────────────────── floating WA ────────────────────────*/
+.wa{
+  position:fixed;bottom:24px;right:24px;z-index:50;
+  background:var(--matcha-deep);color:var(--cream);
+  padding:14px 22px;border-radius:999px;
+  display:flex;align-items:center;gap:10px;
+  font-size:13px;letter-spacing:.06em;
+  box-shadow:0 18px 40px -16px rgba(54,66,30,.5);
+  transition:transform .25s ease;
+}
+.wa:hover{transform:translateY(-3px)}
+.wa svg{width:18px;height:18px}
+
+/*──────────────────────── reveal ────────────────────────*/
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .9s ease, transform .9s cubic-bezier(.2,.7,.2,1)}
+.reveal.in{opacity:1;transform:none}
+
+/*──────────────────────── tweaks panel ────────────────────────*/
+.tweaks{
+  position:fixed;bottom:24px;left:24px;z-index:60;
+  background:var(--cream);border:1px solid var(--line);
+  border-radius:10px;padding:18px 20px;width:260px;
+  box-shadow:0 18px 40px -20px rgba(42,38,32,.3);
+  display:none;
+  font-size:13px;
+}
+.tweaks.open{display:block}
+.tweaks h6{
+  font-family:var(--serif);font-size:18px;font-weight:400;
+  margin-bottom:14px;display:flex;justify-content:space-between;align-items:center;
+}
+.tweaks h6 button{font-size:11px;color:var(--ink-mute);letter-spacing:.1em}
+.tweaks .row{margin-bottom:14px}
+.tweaks .row label{
+  display:block;font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink-mute);margin-bottom:8px;
+}
+.swatches{display:flex;gap:8px}
+.swatch{
+  width:28px;height:28px;border-radius:50%;
+  border:1px solid var(--line);cursor:pointer;
+  transition:transform .15s ease;
+}
+.swatch:hover{transform:scale(1.08)}
+.swatch.active{outline:2px solid var(--ink);outline-offset:2px}
+
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+
+<!-- ─────────── nav ─────────── -->
+<nav class="nav" id="nav">
+  <a href="#top" class="nav-brand">
+    <span class="dot"></span>
+    The Chamber Te<span style="font-feature-settings: &#39;liga&#39; off; font-family: &quot;Cormorant Garamond&quot;">ā</span>
+  </a>
+  <div class="nav-links">
+    <a class="nav-link" href="#story">Story</a>
+    <a class="nav-link" href="#philosophy">Philosophy</a>
+    <a class="nav-link" href="#menu">Menu</a>
+    <a class="nav-link" href="#gallery">Gallery</a>
+    <a class="nav-link" href="#find">Find Us</a>
+  </div>
+  <a class="nav-cta" href="#find">Visit</a>
+  <div class="nav-mobile">
+    <a class="nav-cta" href="#find">Visit</a>
+  </div>
+</nav>
+
+<!-- ─────────── hero ─────────── -->
+<header id="top" class="hero" data-screen-label="01 Hero">
+  <div class="hero-words">
+    <span>Room</span>
+    <span>of</span>
+    <span>Matcha</span>
+  </div>
+
+  <div class="hero-left">
+    <h1 class="hero-title">
+      The<br>
+      Chamber<br>
+      <span class="it">Te</span><span style="font-style:italic;font-weight:300;color:var(--ink-soft)">ā</span><span class="macron"></span>
+    </h1>
+    <p class="hero-sub">
+      A quiet room for matcha in Gading Serpong — small batch, slow steeping,
+      and the kind of ambience you find on your own. Bukan sekadar kafe.
+    </p>
+    <div class="hero-meta">
+      <span><span class="pulse"></span>Open Today · 09–22</span>
+      <span>Est. 2024</span>
+    </div>
+    <div class="hero-cta-row">
+      <a href="#menu" class="btn btn-primary">
+        See the Menu <span class="arrow">→</span>
+      </a>
+      <a href="#story" class="btn btn-ghost">Our Story</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <img class="hero-bowl" src="assets/bowl-cream.jpg" alt="Whisk and chawan illustration — The Chamber Tea" />
+    <div class="hero-stamp">
+      <div class="inner">
+        whisked<br>by hand —<br>since '24
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ─────────── marquee ─────────── -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    <span>
+      Stone-ground matcha
+      <em class="dot"></em>
+      Tenang & berkarakter
+      <em class="dot"></em>
+      Small batch · Gading Serpong
+      <em class="dot"></em>
+      Whisked slowly, served warmly
+      <em class="dot"></em>
+      Cold brew that converts
+      <em class="dot"></em>
+    </span>
+    <span>
+      Stone-ground matcha
+      <em class="dot"></em>
+      Tenang & berkarakter
+      <em class="dot"></em>
+      Small batch · Gading Serpong
+      <em class="dot"></em>
+      Whisked slowly, served warmly
+      <em class="dot"></em>
+      Cold brew that converts
+      <em class="dot"></em>
+    </span>
+  </div>
+</div>
+
+<!-- ─────────── story / about ─────────── -->
+<section id="story" class="about" data-screen-label="02 Story">
+  <div class="block" style="padding-left:0;padding-right:0;max-width:var(--max);margin:0 auto">
+    <div style="padding:0 var(--gutter)">
+      <div class="section-head reveal">
+        <div>
+          <div class="num">01 — Tentang Kami</div>
+        </div>
+        <h2>
+          A place people<br>
+          <span class="it">found on their own.</span>
+        </h2>
+      </div>
+
+      <div class="about-grid reveal">
+        <div class="about-text">
+          <p class="lead">
+            Our customers mostly didn't arrive through ads. They searched, got
+            curious, and fell for the room.
+          </p>
+          <p>
+            That isn't an accident — it's the shape of a brand built slowly.
+            From bazaars across Jakarta to a quiet corner in Gading Serpong,
+            The Chamber Tea has been shaped detail by detail: the ceramic, the
+            shade-grown leaf, the way the cold brew converts a sceptic by the
+            third sip.
+          </p>
+          <p>
+            We don't think of it as a café. We think of it as a chamber — a
+            small, considered room where matcha and me-time finally have a
+            place to meet.
+          </p>
+
+          <div class="about-stats">
+            <div class="stat"><div class="k">9</div><div class="l">Signature drinks</div></div>
+            <div class="stat"><div class="k">12+</div><div class="l">Bazaars · 2024–25</div></div>
+            <div class="stat"><div class="k">1</div><div class="l">Quiet chamber, Serpong</div></div>
+            <div class="stat"><div class="k">∞</div><div class="l">Conversions to matcha</div></div>
+          </div>
+        </div>
+
+        <aside class="about-side">
+          <div class="about-quote">
+            People don't come because of Google Ads. They come because
+            they found it themselves — and that is worth more than
+            any campaign.
+            <span class="cite">— Founder's note</span>
+          </div>
+          <div class="about-profile">
+            <div class="profile-item"><div class="l">Location</div><div class="v">Gading Serpong</div></div>
+            <div class="profile-item"><div class="l">Focus</div><div class="v">Matcha & specialty</div></div>
+            <div class="profile-item"><div class="l">Audience</div><div class="v">Me-time seekers</div></div>
+            <div class="profile-item"><div class="l">Vibe</div><div class="v">Tenang · Personal</div></div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── philosophy / pillars ─────────── -->
+<section id="philosophy" class="block" data-screen-label="03 Philosophy">
+  <div class="section-head reveal">
+    <div class="num">02 — Filosofi</div>
+    <h2>Three things we<br><span class="it">obsess over.</span></h2>
+  </div>
+
+  <div class="pillars reveal">
+    <div class="pillar">
+      <div class="ico">i</div>
+      <h3>The room before the menu.</h3>
+      <p>
+        Light low, sound softer, ceramic in your hands. The chamber is
+        designed so the drink lands inside an atmosphere — not the other
+        way around.
+      </p>
+    </div>
+    <div class="pillar">
+      <div class="ico">ii</div>
+      <h3>Leaf, properly chosen.</h3>
+      <p>
+        Stone-ground, shade-grown matcha sourced from small Japanese
+        producers. We change the lineup with the seasons and tell you
+        which harvest you're drinking.
+      </p>
+    </div>
+    <div class="pillar">
+      <div class="ico">iii</div>
+      <h3>Conversion by sip.</h3>
+      <p>
+        The cold brew is the gateway. We've watched it turn matcha-sceptics
+        into regulars more times than we can count — quietly, without
+        a slogan.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── menu ─────────── -->
+<section id="menu" class="menu" data-screen-label="04 Menu">
+  <div class="block" style="padding-left:0;padding-right:0;max-width:var(--max);margin:0 auto">
+    <div style="padding:0 var(--gutter)">
+      <div class="section-head reveal">
+        <div class="num">03 — Daftar Menu</div>
+        <h2>The list,<br><span class="it">read like a letter.</span></h2>
+      </div>
+
+      <div class="menu-head reveal">
+        <div class="menu-tabs" id="menuTabs">
+          <button class="menu-tab active" data-cat="signature">Signature</button>
+          <button class="menu-tab" data-cat="ceremonial">Ceremonial</button>
+          <button class="menu-tab" data-cat="cold">Cold Brew</button>
+          <button class="menu-tab" data-cat="pastry">Pastry</button>
+        </div>
+        <div style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-mute)">
+          Prices in IDR · Service incl.
+        </div>
+      </div>
+
+      <div class="menu-list reveal" id="menuList"><!-- injected --></div>
+
+      <div class="menu-foot reveal">
+        <div>Seasonal menu changes each quarter. Ask the barista what's pouring this week.</div>
+        <a href="#find" class="btn btn-ghost">Visit the chamber <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── gallery ─────────── -->
+<section id="gallery" class="block" data-screen-label="05 Gallery">
+  <div class="section-head reveal">
+    <div class="num">04 — Galeri</div>
+    <h2>Quiet evidence.<br><span class="it">Lihat ruangnya.</span></h2>
+  </div>
+
+  <div class="gallery-grid reveal">
+    <div class="tile t1 bowl">
+      <div class="corner">01 / 06</div>
+      <div class="ph"><div class="ttl">The chawan, mid-whisk</div><div class="lbl">brand mark · watercolor</div></div>
+    </div>
+    <div class="tile t2">
+      <div class="corner">02 / 06</div>
+      <div class="ph"><div class="ttl">Counter, golden hour</div><div class="lbl">interior · placeholder</div></div>
+    </div>
+    <div class="tile t3">
+      <div class="corner">03 / 06</div>
+      <div class="ph"><div class="ttl">Iced Hojicha</div><div class="lbl">product · placeholder</div></div>
+    </div>
+    <div class="tile t4">
+      <div class="corner">04 / 06</div>
+      <div class="ph"><div class="ttl">Bazaar at Semasa</div><div class="lbl">event · placeholder</div></div>
+    </div>
+    <div class="tile t5">
+      <div class="corner">05 / 06</div>
+      <div class="ph"><div class="ttl">Tea caddy, Uji 2nd harvest</div><div class="lbl">detail · placeholder</div></div>
+    </div>
+    <div class="tile t6">
+      <div class="corner">06 / 06</div>
+      <div class="ph"><div class="ttl">A regular's table</div><div class="lbl">ambience · placeholder</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── find us ─────────── -->
+<section id="find" class="find" data-screen-label="06 Find Us">
+  <div class="block" style="padding-left:0;padding-right:0;max-width:var(--max);margin:0 auto">
+    <div style="padding:0 var(--gutter)">
+      <div class="section-head reveal">
+        <div class="num" style="color:rgba(244,236,223,.5)">05 — Find Us</div>
+        <h2>Stop by the<br><span class="it">chamber.</span></h2>
+      </div>
+
+      <div class="find-grid reveal">
+        <div>
+          <div class="find-card">
+            <h4>Address</h4>
+            <p>Ruko Crown Golf, Blok C No. 23<br>Gading Serpong, Tangerang 15810<br>Banten, Indonesia</p>
+          </div>
+          <div class="find-card">
+            <h4>Hours</h4>
+            <div class="row hours-row"><span class="day">Monday — Thursday</span><span class="t">09:00 — 22:00</span></div>
+            <div class="row hours-row"><span class="day">Friday</span><span class="t">09:00 — 23:00</span></div>
+            <div class="row hours-row"><span class="day">Saturday — Sunday</span><span class="t">08:00 — 23:00</span></div>
+          </div>
+          <div class="find-card">
+            <h4>Reach out</h4>
+            <div class="row" style="display:flex;justify-content:space-between"><span class="day">WhatsApp</span><span class="t">+62 877 0000 0000</span></div>
+            <div class="row" style="display:flex;justify-content:space-between"><span class="day">Email</span><span class="t">halo@thechambertea.id</span></div>
+            <div class="row" style="display:flex;justify-content:space-between"><span class="day">Instagram</span><span class="t">@thechambertea</span></div>
+          </div>
+        </div>
+
+        <div class="find-map" aria-label="Map illustration of Gading Serpong location">
+          <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+            <!-- soft grid roads -->
+            <g stroke="rgba(244,236,223,.08)" stroke-width="1">
+              <path d="M0 80 L400 60"/>
+              <path d="M0 170 L400 200"/>
+              <path d="M0 280 L400 250"/>
+              <path d="M0 350 L400 330"/>
+              <path d="M70 0 L60 400"/>
+              <path d="M180 0 L210 400"/>
+              <path d="M310 0 L300 400"/>
+            </g>
+            <g stroke="rgba(244,236,223,.16)" stroke-width="2" fill="none">
+              <path d="M0 200 C 100 180, 180 220, 220 200 S 360 230, 400 210"/>
+              <path d="M180 0 C 200 100, 230 180, 220 240 S 200 360, 215 400"/>
+            </g>
+            <!-- park -->
+            <circle cx="120" cy="280" r="38" fill="rgba(79,94,58,.18)"/>
+            <text x="120" y="285" text-anchor="middle" fill="rgba(244,236,223,.4)" font-family="Cormorant Garamond" font-style="italic" font-size="11">Taman</text>
+            <!-- blocks -->
+            <rect x="260" y="100" width="60" height="40" fill="rgba(244,236,223,.05)"/>
+            <rect x="60" y="80" width="40" height="60" fill="rgba(244,236,223,.05)"/>
+            <rect x="270" y="290" width="80" height="50" fill="rgba(244,236,223,.05)"/>
+          </svg>
+          <div class="map-marker">
+            <div class="pin"></div>
+            <div class="lbl">The Chamber Tea</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── cta strip ─────────── -->
+<section class="cta-strip" data-screen-label="07 CTA">
+  <span class="eyebrow">Mau ngobrol?</span>
+  <h2 class="reveal">Come for the matcha.<br><span class="it">Stay for the room.</span></h2>
+  <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap" class="reveal">
+    <a class="btn btn-primary" href="#find">Get directions <span class="arrow">→</span></a>
+    <a class="btn btn-ghost" href="#menu">Browse menu</a>
+  </div>
+</section>
+
+<!-- ─────────── footer ─────────── -->
+<footer>
+  <div class="foot-grid">
+    <div>
+      <div class="foot-brand">The Chamber Te<span style="font-feature-settings:'liga' off">ā</span></div>
+      <div class="foot-tag">A small chamber for matcha and me-time, in Gading Serpong, Tangerang. Open daily.</div>
+    </div>
+    <div class="foot-col">
+      <h5>Navigate</h5>
+      <a href="#story">Story</a>
+      <a href="#philosophy">Philosophy</a>
+      <a href="#menu">Menu</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#find">Find Us</a>
+    </div>
+    <div class="foot-col">
+      <h5>Visit</h5>
+      <p>Ruko Crown Golf C/23</p>
+      <p>Gading Serpong, Tangerang</p>
+      <p>Mon–Sun · 09–22</p>
+    </div>
+    <div class="foot-col">
+      <h5>Reach</h5>
+      <a href="#">+62 877 0000 0000</a>
+      <a href="#">halo@thechambertea.id</a>
+      <a href="#">@thechambertea</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <div>© 2026 The Chamber Tea · All quiet rights reserved.</div>
+    <div class="made">A digital home, with Worklight.</div>
+  </div>
+</footer>
+
+<!-- ─────────── WA float ─────────── -->
+<a href="#" class="wa" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5A11.7 11.7 0 0 0 12 0C5.4 0 0 5.4 0 12c0 2.1.5 4.1 1.6 5.9L0 24l6.3-1.6A11.9 11.9 0 0 0 12 24c6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.5-8.5zM12 21.8a9.7 9.7 0 0 1-5-1.4l-.3-.2-3.7.9 1-3.6-.3-.4A9.7 9.7 0 0 1 2.2 12 9.8 9.8 0 0 1 12 2.2 9.8 9.8 0 0 1 21.8 12 9.8 9.8 0 0 1 12 21.8zm5.4-7.3c-.3-.2-1.8-.9-2-1s-.5-.1-.7.2-.8 1-1 1.2-.4.2-.7 0a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.6-2c-.2-.3 0-.5.1-.6l.5-.6.3-.5c.1-.2 0-.4 0-.5l-.9-2.2c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.2 3.4 5.4 4.7.7.4 1.3.6 1.8.7.7.2 1.4.2 2 .1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.6-.4z"/></svg>
+  WhatsApp Us
+</a>
+
+<!-- ─────────── tweaks panel ─────────── -->
+<div class="tweaks" id="tweaks">
+  <h6>Tweaks <button id="closeTweaks">close</button></h6>
+  <div class="row">
+    <label>Accent</label>
+    <div class="swatches" id="accentSwatches">
+      <div class="swatch active" data-c="#4F5E3A" style="background:#4F5E3A"></div>
+      <div class="swatch" data-c="#7A5A2A" style="background:#7A5A2A"></div>
+      <div class="swatch" data-c="#3A4F5E" style="background:#3A4F5E"></div>
+      <div class="swatch" data-c="#5E3A4F" style="background:#5E3A4F"></div>
+    </div>
+  </div>
+  <div class="row">
+    <label>Surface</label>
+    <div class="swatches" id="bgSwatches">
+      <div class="swatch active" data-bg="#F4ECDF" data-bg2="#ECE1CC" data-bg3="#E7DAC0" style="background:#F4ECDF"></div>
+      <div class="swatch" data-bg="#F2EFEA" data-bg2="#E8E4DC" data-bg3="#DDD7CA" style="background:#F2EFEA"></div>
+      <div class="swatch" data-bg="#EFE8DA" data-bg2="#E2D6BB" data-bg3="#D7C7A2" style="background:#EFE8DA"></div>
+      <div class="swatch" data-bg="#F6F2EC" data-bg2="#EFE8DC" data-bg3="#E5DAC6" style="background:#F6F2EC"></div>
+    </div>
+  </div>
+  <div class="row">
+    <label>Display Serif Weight</label>
+    <div class="swatches">
+      <button class="swatch" data-wt="300" style="font-family:var(--serif);font-weight:300;background:var(--cream-deep);color:var(--ink);width:auto;height:28px;padding:0 10px;border-radius:6px;font-size:13px">Light</button>
+      <button class="swatch" data-wt="400" style="font-family:var(--serif);font-weight:400;background:var(--cream-deep);color:var(--ink);width:auto;height:28px;padding:0 10px;border-radius:6px;font-size:13px">Regular</button>
+      <button class="swatch" data-wt="500" style="font-family:var(--serif);font-weight:500;background:var(--cream-deep);color:var(--ink);width:auto;height:28px;padding:0 10px;border-radius:6px;font-size:13px">Medium</button>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────── tweak defaults ─────────── -->
+<script>
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "accent": "#4F5E3A",
+  "surface": "#F4ECDF",
+  "displayWeight": 500
+}/*EDITMODE-END*/;
+</script>
+
+<!-- ─────────── behavior ─────────── -->
+<script>
+/* ───── scroll progress + nav state ───── */
+const nav = document.getElementById('nav');
+const progress = document.getElementById('progress');
+function onScroll(){
+  const h = document.documentElement;
+  const pct = h.scrollTop / (h.scrollHeight - h.clientHeight) * 100;
+  progress.style.width = pct + '%';
+  nav.classList.toggle('scrolled', h.scrollTop > 30);
+}
+addEventListener('scroll', onScroll, {passive:true});
+onScroll();
+
+/* ───── reveal on scroll ───── */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+  });
+},{threshold:.14});
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* ───── menu data + tabs ───── */
+const MENU = {
+  signature: [
+    { name: "Hōseki Latte", desc: "Stone-ground ceremonial matcha, milk, a whisper of honey.", price: "48", tag: "House" },
+    { name: "Iced Yuzu Matcha", desc: "Cold brew matcha lifted with citrus from Kumamoto.", price: "52", tag: "Bestseller" },
+    { name: "The Chamber Brew", desc: "Slow cold-brew sencha, oak-aged 18h. Bottled.", price: "45" },
+    { name: "Matcha Soft Serve", desc: "Single-origin Uji, low sugar, pour-over style.", price: "42" },
+    { name: "Hojicha Affogato", desc: "Roasted leaf, espresso of matcha, vanilla cream.", price: "55" },
+    { name: "Sakura Lattē", desc: "Springtime only. Cherry blossom + ceremonial.", price: "48", tag: "Seasonal" },
+  ],
+  ceremonial: [
+    { name: "Usucha · Uji 1st Harvest", desc: "Thin tea, whisked in chawan, served with namagashi.", price: "65" },
+    { name: "Koicha · Wazuka Reserve", desc: "Thick tea, deep umami. For the patient.", price: "85", tag: "Reserve" },
+    { name: "Sencha Pour-Over", desc: "Three infusions, one leaf. Twenty quiet minutes.", price: "55" },
+    { name: "Gyokuro Tasting", desc: "Shade-grown leaf, low temperature, full flight.", price: "95", tag: "Flight" },
+  ],
+  cold: [
+    { name: "Cold Brew Matcha", desc: "12-hour steep. The drink that converts sceptics.", price: "38", tag: "Gateway" },
+    { name: "Sparkling Hojicha", desc: "Roasted tea, lightly sparkling, a wedge of yuzu.", price: "40" },
+    { name: "Genmaicha Tonic", desc: "Toasted-rice tea, dry tonic, rosemary.", price: "42" },
+    { name: "Iced Matcha Latte", desc: "Bench standard. Ceremonial grade, oat or dairy.", price: "44" },
+  ],
+  pastry: [
+    { name: "Matcha Basque", desc: "Burnt cheesecake, ceremonial-grade folded in.", price: "55" },
+    { name: "Hojicha Canelé", desc: "Caramelised crust, roasted-tea custard.", price: "32" },
+    { name: "Yuzu Madeleine", desc: "Buttery, citrus glaze. Served warm.", price: "28" },
+    { name: "Black Sesame Cookie", desc: "Soft centre, toasted edge. House-baked.", price: "26" },
+  ],
+};
+const menuList = document.getElementById('menuList');
+function renderMenu(cat){
+  menuList.innerHTML = MENU[cat].map(item => `
+    <div class="menu-item">
+      <div>
+        <div class="name">${item.name}${item.tag?`<span class="menu-tag">${item.tag}</span>`:''}</div>
+        <div class="desc">${item.desc}</div>
+      </div>
+      <div class="price"><span class="sm">IDR</span>${item.price}<span class="sm">k</span></div>
+    </div>
+  `).join('');
+}
+renderMenu('signature');
+document.querySelectorAll('#menuTabs .menu-tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#menuTabs .menu-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderMenu(btn.dataset.cat);
+  });
+});
+
+/* ───── tweaks: edit-mode protocol ───── */
+const tweaksPanel = document.getElementById('tweaks');
+let tweaksState = JSON.parse(JSON.stringify(TWEAK_DEFAULTS));
+
+function applyTweaks(){
+  document.documentElement.style.setProperty('--matcha', tweaksState.accent);
+  const darken = (hex, amt = 0.15) => {
+    const n = parseInt(hex.slice(1),16);
+    const r = Math.max(0, ((n>>16)&255) - amt*255)|0;
+    const g = Math.max(0, ((n>>8)&255) - amt*255)|0;
+    const b = Math.max(0, (n&255) - amt*255)|0;
+    return `#${(r<<16|g<<8|b).toString(16).padStart(6,'0')}`;
+  };
+  document.documentElement.style.setProperty('--matcha-deep', darken(tweaksState.accent, .18));
+  document.documentElement.style.setProperty('--cream', tweaksState.surface);
+  document.documentElement.style.setProperty('--cream-deep', tweaksState.surfaceDeep || '#ECE1CC');
+  document.documentElement.style.setProperty('--cream-warm', tweaksState.surfaceWarm || '#E7DAC0');
+  document.querySelectorAll('.serif, .hero-title, h2, h3, .about-quote, .about-text p.lead, .menu-item .name, .stat .k, .find-card h4, .cta-strip h2, .foot-brand').forEach(el=>{
+    el.style.fontWeight = tweaksState.displayWeight;
+  });
+}
+
+window.addEventListener('message', (e) => {
+  const d = e.data || {};
+  if (d.type === '__activate_edit_mode'){ tweaksPanel.classList.add('open'); }
+  if (d.type === '__deactivate_edit_mode'){ tweaksPanel.classList.remove('open'); }
+});
+window.parent.postMessage({type:'__edit_mode_available'}, '*');
+
+document.getElementById('closeTweaks').addEventListener('click', () => {
+  tweaksPanel.classList.remove('open');
+  window.parent.postMessage({type:'__edit_mode_dismissed'}, '*');
+});
+
+document.querySelectorAll('#accentSwatches .swatch').forEach(sw => {
+  sw.addEventListener('click', () => {
+    document.querySelectorAll('#accentSwatches .swatch').forEach(s => s.classList.remove('active'));
+    sw.classList.add('active');
+    tweaksState.accent = sw.dataset.c;
+    applyTweaks();
+    window.parent.postMessage({type:'__edit_mode_set_keys', edits:{accent:tweaksState.accent}}, '*');
+  });
+});
+
+document.querySelectorAll('#bgSwatches .swatch').forEach(sw => {
+  sw.addEventListener('click', () => {
+    document.querySelectorAll('#bgSwatches .swatch').forEach(s => s.classList.remove('active'));
+    sw.classList.add('active');
+    tweaksState.surface = sw.dataset.bg;
+    tweaksState.surfaceDeep = sw.dataset.bg2;
+    tweaksState.surfaceWarm = sw.dataset.bg3;
+    applyTweaks();
+    window.parent.postMessage({type:'__edit_mode_set_keys', edits:{surface:tweaksState.surface}}, '*');
+  });
+});
+
+document.querySelectorAll('[data-wt]').forEach(b => {
+  b.addEventListener('click', () => {
+    tweaksState.displayWeight = +b.dataset.wt;
+    applyTweaks();
+    window.parent.postMessage({type:'__edit_mode_set_keys', edits:{displayWeight:tweaksState.displayWeight}}, '*');
+  });
+});
+
+applyTweaks();
+</script>
+
+</body>
+</html>
