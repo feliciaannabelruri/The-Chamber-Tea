@@ -53,6 +53,14 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 }
 .divider{height:1px;background:var(--line);width:100%}
 
+/* ── fix: font-feature-settings moved out of inline style ── */
+.liga-off{
+  font-feature-settings:"liga" off;
+}
+.liga-off-simple{
+  font-feature-settings:"liga" off;
+}
+
 /*──────────────────────── progress bar ────────────────────────*/
 .progress{
   position:fixed;top:0;left:0;height:2px;width:0;
@@ -228,27 +236,30 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 
 /*──────────────────────── section base ────────────────────────*/
 section.block{
-  padding:clamp(80px,10vw,160px) var(--gutter);
+  padding:clamp(60px,7vw,100px) var(--gutter);
   max-width:var(--max);
   margin:0 auto;
 }
 .section-head{
-  display:grid;grid-template-columns:200px 1fr;gap:60px;
-  margin-bottom:72px;align-items:start;
+  display:grid;grid-template-columns:240px 1fr;gap:80px;
+  margin-bottom:80px;align-items:start;
+  padding-top:16px;
 }
 .section-head .num{
   font-family:var(--serif);font-style:italic;font-size:18px;
   color:var(--ink-soft);
+  padding-top:12px;
 }
 .section-head h2{
   font-family:var(--serif);
   font-size:clamp(40px,5vw,68px);
-  line-height:1;letter-spacing:-.015em;font-weight:400;
+  line-height:1.05;letter-spacing:-.015em;font-weight:400;
   max-width:14ch;
 }
 .section-head h2 .it{font-style:italic;color:var(--ink-soft);font-weight:300}
 @media (max-width:760px){
-  .section-head{grid-template-columns:1fr;gap:18px;margin-bottom:48px}
+  .section-head{grid-template-columns:1fr;gap:12px;margin-bottom:48px;padding-top:0}
+  .section-head .num{padding-top:0}
 }
 
 /*──────────────────────── about ────────────────────────*/
@@ -265,12 +276,12 @@ section.block{
   margin-bottom:28px;max-width:24ch;
 }
 .about-stats{
-  display:grid;grid-template-columns:1fr 1fr;gap:32px;
-  margin-top:48px;padding-top:36px;border-top:1px solid var(--line);
+  display:grid;grid-template-columns:1fr 1fr;gap:20px 32px;
+  margin-top:36px;padding-top:28px;border-top:1px solid var(--line);
 }
 .stat .k{
   font-family:var(--serif);font-size:42px;line-height:1;
-  color:var(--ink);margin-bottom:8px;
+  color:var(--ink);margin-bottom:6px;
 }
 .stat .l{
   font-size:11px;letter-spacing:.2em;text-transform:uppercase;
@@ -450,6 +461,16 @@ section.block{
   background-size:cover;background-position:center;
 }
 .tile.bowl .ph{background:linear-gradient(180deg,transparent 50%,rgba(244,236,223,.92));}
+.tile.photo{
+  background-size:cover;
+  background-position:center;
+}
+.tile.photo .ph{
+  background:linear-gradient(180deg,transparent 40%,rgba(42,38,32,.55));
+}
+.tile.photo .ttl{color:#F4ECDF}
+.tile.photo .lbl{color:rgba(244,236,223,.6)}
+.tile.photo .corner{color:rgba(244,236,223,.5)}
 @media (max-width:760px){
   .gallery-grid{grid-template-columns:repeat(6,1fr);grid-auto-rows:120px}
   .tile.t1,.tile.t2,.tile.t3,.tile.t4,.tile.t5,.tile.t6{grid-column:span 6;grid-row:span 2}
@@ -486,11 +507,13 @@ section.block{
   position:relative;
   border:1px solid rgba(244,236,223,.18);
   overflow:hidden;border-radius:6px;
-  background:
-    radial-gradient(circle at 30% 30%, rgba(79,94,58,.18), transparent 50%),
-    radial-gradient(circle at 70% 70%, rgba(244,236,223,.06), transparent 50%),
-    #1e1b16;
+  background:#1e1b16;
+  cursor:pointer;
+  display:block;
+  text-decoration:none;
+  transition:opacity .25s ease;
 }
+.find-map:hover{opacity:.9}
 .find-map svg{position:absolute;inset:0;width:100%;height:100%}
 .map-marker{
   position:absolute;top:48%;left:52%;
@@ -517,7 +540,7 @@ section.block{
 
 /*──────────────────────── footer ────────────────────────*/
 .cta-strip{
-  text-align:center;padding:120px var(--gutter);
+  text-align:center;padding:80px var(--gutter);
   background:var(--cream-deep);
 }
 .cta-strip .eyebrow{margin-bottom:24px;display:block}
@@ -605,7 +628,6 @@ footer{
 }
 .swatch:hover{transform:scale(1.08)}
 .swatch.active{outline:2px solid var(--ink);outline-offset:2px}
-
 </style>
 </head>
 <body>
@@ -616,7 +638,7 @@ footer{
 <nav class="nav" id="nav">
   <a href="#top" class="nav-brand">
     <span class="dot"></span>
-    The Chamber Te<span style="font-feature-settings: &#39;liga&#39; off; font-family: &quot;Cormorant Garamond&quot;">ā</span>
+    The Chamber Teā
   </a>
   <div class="nav-links">
     <a class="nav-link" href="#story">Story</a>
@@ -643,14 +665,14 @@ footer{
     <h1 class="hero-title">
       The<br>
       Chamber<br>
-      <span class="it">Te</span><span style="font-style:italic;font-weight:300;color:var(--ink-soft)">ā</span><span class="macron"></span>
+      <span class="it">Teā</span>
     </h1>
     <p class="hero-sub">
       A quiet room for matcha in Gading Serpong — small batch, slow steeping,
       and the kind of ambience you find on your own. Bukan sekadar kafe.
     </p>
     <div class="hero-meta">
-      <span><span class="pulse"></span>Open Today · 09–22</span>
+      <span><span class="pulse"></span>Open Today · 09–21</span>
       <span>Est. 2024</span>
     </div>
     <div class="hero-cta-row">
@@ -677,7 +699,7 @@ footer{
     <span>
       Stone-ground matcha
       <em class="dot"></em>
-      Tenang & berkarakter
+      Tenang &amp; berkarakter
       <em class="dot"></em>
       Small batch · Gading Serpong
       <em class="dot"></em>
@@ -689,7 +711,7 @@ footer{
     <span>
       Stone-ground matcha
       <em class="dot"></em>
-      Tenang & berkarakter
+      Tenang &amp; berkarakter
       <em class="dot"></em>
       Small batch · Gading Serpong
       <em class="dot"></em>
@@ -703,7 +725,7 @@ footer{
 
 <!-- ─────────── story / about ─────────── -->
 <section id="story" class="about" data-screen-label="02 Story">
-  <div class="block" style="padding-left:0;padding-right:0;max-width:var(--max);margin:0 auto">
+  <div class="block" style="padding-left:0;padding-right:0;padding-top:clamp(60px,7vw,100px);padding-bottom:clamp(60px,7vw,100px);max-width:var(--max);margin:0 auto">
     <div style="padding:0 var(--gutter)">
       <div class="section-head reveal">
         <div>
@@ -751,7 +773,7 @@ footer{
           </div>
           <div class="about-profile">
             <div class="profile-item"><div class="l">Location</div><div class="v">Gading Serpong</div></div>
-            <div class="profile-item"><div class="l">Focus</div><div class="v">Matcha & specialty</div></div>
+            <div class="profile-item"><div class="l">Focus</div><div class="v">Matcha &amp; specialty</div></div>
             <div class="profile-item"><div class="l">Audience</div><div class="v">Me-time seekers</div></div>
             <div class="profile-item"><div class="l">Vibe</div><div class="v">Tenang · Personal</div></div>
           </div>
@@ -801,7 +823,7 @@ footer{
 
 <!-- ─────────── menu ─────────── -->
 <section id="menu" class="menu" data-screen-label="04 Menu">
-  <div class="block" style="padding-left:0;padding-right:0;max-width:var(--max);margin:0 auto">
+  <div class="block" style="padding-left:0;padding-right:0;padding-top:clamp(60px,7vw,100px);padding-bottom:clamp(60px,7vw,100px);max-width:var(--max);margin:0 auto">
     <div style="padding:0 var(--gutter)">
       <div class="section-head reveal">
         <div class="num">03 — Daftar Menu</div>
@@ -810,10 +832,10 @@ footer{
 
       <div class="menu-head reveal">
         <div class="menu-tabs" id="menuTabs">
-          <button class="menu-tab active" data-cat="signature">Signature</button>
-          <button class="menu-tab" data-cat="ceremonial">Ceremonial</button>
-          <button class="menu-tab" data-cat="cold">Cold Brew</button>
-          <button class="menu-tab" data-cat="pastry">Pastry</button>
+          <button class="menu-tab active" data-cat="matcha">Matcha</button>
+          <button class="menu-tab" data-cat="hojicha">Hojicha</button>
+          <button class="menu-tab" data-cat="food">Food</button>
+          <button class="menu-tab" data-cat="other">Other</button>
         </div>
         <div style="font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-mute)">
           Prices in IDR · Service incl.
@@ -823,7 +845,7 @@ footer{
       <div class="menu-list reveal" id="menuList"><!-- injected --></div>
 
       <div class="menu-foot reveal">
-        <div>Seasonal menu changes each quarter. Ask the barista what's pouring this week.</div>
+        <div>Milk options: Oatmilk Mix Fresh Milk · Oatmilk · Fresh Milk. Seasonal menu changes each quarter.</div>
         <a href="#find" class="btn btn-ghost">Visit the chamber <span class="arrow">→</span></a>
       </div>
     </div>
@@ -838,36 +860,36 @@ footer{
   </div>
 
   <div class="gallery-grid reveal">
-    <div class="tile t1 bowl">
-      <div class="corner">01 / 06</div>
-      <div class="ph"><div class="ttl">The chawan, mid-whisk</div><div class="lbl">brand mark · watercolor</div></div>
+    <div class="tile t1 photo" style="background-image:url('assets/IMG_6120.jpg');background-position:center top">
+      <div class="corner">01 / 05</div>
+      <div class="ph"><div class="ttl">The counter, golden hour</div><div class="lbl">interior · bar</div></div>
     </div>
-    <div class="tile t2">
-      <div class="corner">02 / 06</div>
-      <div class="ph"><div class="ttl">Counter, golden hour</div><div class="lbl">interior · placeholder</div></div>
+    <div class="tile t2 photo" style="background-image:url('assets/IMG_6121.jpg')">
+      <div class="corner">02 / 05</div>
+      <div class="ph"><div class="ttl">The sofa corner</div><div class="lbl">interior · lounge</div></div>
     </div>
-    <div class="tile t3">
-      <div class="corner">03 / 06</div>
-      <div class="ph"><div class="ttl">Iced Hojicha</div><div class="lbl">product · placeholder</div></div>
+    <div class="tile t3 photo" style="background-image:url('assets/IMG_6124.jpg');background-position:center top">
+      <div class="corner">03 / 05</div>
+      <div class="ph"><div class="ttl">Chawan collection</div><div class="lbl">detail · ceramics</div></div>
     </div>
-    <div class="tile t4">
-      <div class="corner">04 / 06</div>
-      <div class="ph"><div class="ttl">Bazaar at Semasa</div><div class="lbl">event · placeholder</div></div>
+    <div class="tile t4 photo" style="background-image:url('assets/IMG_6123.jpg')">
+      <div class="corner">04 / 05</div>
+      <div class="ph"><div class="ttl">A regular's table</div><div class="lbl">interior · workspace</div></div>
     </div>
-    <div class="tile t5">
-      <div class="corner">05 / 06</div>
-      <div class="ph"><div class="ttl">Tea caddy, Uji 2nd harvest</div><div class="lbl">detail · placeholder</div></div>
+    <div class="tile t5 photo" style="background-image:url('assets/IMG_6122.jpg')">
+      <div class="corner">05 / 05</div>
+      <div class="ph"><div class="ttl">Window seats</div><div class="lbl">interior · seating</div></div>
     </div>
-    <div class="tile t6">
-      <div class="corner">06 / 06</div>
-      <div class="ph"><div class="ttl">A regular's table</div><div class="lbl">ambience · placeholder</div></div>
+    <div class="tile t6 photo" style="background-image:url('assets/IMG_6121.jpg');background-position:right center">
+      <div class="corner">— </div>
+      <div class="ph"><div class="ttl">Tenang · Personal</div><div class="lbl">the chamber · serpong</div></div>
     </div>
   </div>
 </section>
 
 <!-- ─────────── find us ─────────── -->
 <section id="find" class="find" data-screen-label="06 Find Us">
-  <div class="block" style="padding-left:0;padding-right:0;max-width:var(--max);margin:0 auto">
+  <div class="block" style="padding-left:0;padding-right:0;padding-top:clamp(60px,7vw,100px);padding-bottom:clamp(60px,7vw,100px);max-width:var(--max);margin:0 auto">
     <div style="padding:0 var(--gutter)">
       <div class="section-head reveal">
         <div class="num" style="color:rgba(244,236,223,.5)">05 — Find Us</div>
@@ -878,51 +900,38 @@ footer{
         <div>
           <div class="find-card">
             <h4>Address</h4>
-            <p>Ruko Crown Golf, Blok C No. 23<br>Gading Serpong, Tangerang 15810<br>Banten, Indonesia</p>
+            <p>Jl. Jenderal Gatot Subroto No. 11<br>Pagedangan, Tangerang 15334<br>Banten, Indonesia</p>
           </div>
           <div class="find-card">
             <h4>Hours</h4>
-            <div class="row hours-row"><span class="day">Monday — Thursday</span><span class="t">09:00 — 22:00</span></div>
-            <div class="row hours-row"><span class="day">Friday</span><span class="t">09:00 — 23:00</span></div>
-            <div class="row hours-row"><span class="day">Saturday — Sunday</span><span class="t">08:00 — 23:00</span></div>
+            <div class="row hours-row"><span class="day">Senin — Minggu</span><span class="t">09:00 — 21:00</span></div>
           </div>
           <div class="find-card">
             <h4>Reach out</h4>
-            <div class="row" style="display:flex;justify-content:space-between"><span class="day">WhatsApp</span><span class="t">+62 877 0000 0000</span></div>
-            <div class="row" style="display:flex;justify-content:space-between"><span class="day">Email</span><span class="t">halo@thechambertea.id</span></div>
+            <div class="row" style="display:flex;justify-content:space-between"><span class="day">WhatsApp</span><span class="t">+62 895 4124 14757</span></div>
             <div class="row" style="display:flex;justify-content:space-between"><span class="day">Instagram</span><span class="t">@thechambertea</span></div>
           </div>
         </div>
 
-        <div class="find-map" aria-label="Map illustration of Gading Serpong location">
-          <svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
-            <!-- soft grid roads -->
-            <g stroke="rgba(244,236,223,.08)" stroke-width="1">
-              <path d="M0 80 L400 60"/>
-              <path d="M0 170 L400 200"/>
-              <path d="M0 280 L400 250"/>
-              <path d="M0 350 L400 330"/>
-              <path d="M70 0 L60 400"/>
-              <path d="M180 0 L210 400"/>
-              <path d="M310 0 L300 400"/>
-            </g>
-            <g stroke="rgba(244,236,223,.16)" stroke-width="2" fill="none">
-              <path d="M0 200 C 100 180, 180 220, 220 200 S 360 230, 400 210"/>
-              <path d="M180 0 C 200 100, 230 180, 220 240 S 200 360, 215 400"/>
-            </g>
-            <!-- park -->
-            <circle cx="120" cy="280" r="38" fill="rgba(79,94,58,.18)"/>
-            <text x="120" y="285" text-anchor="middle" fill="rgba(244,236,223,.4)" font-family="Cormorant Garamond" font-style="italic" font-size="11">Taman</text>
-            <!-- blocks -->
-            <rect x="260" y="100" width="60" height="40" fill="rgba(244,236,223,.05)"/>
-            <rect x="60" y="80" width="40" height="60" fill="rgba(244,236,223,.05)"/>
-            <rect x="270" y="290" width="80" height="50" fill="rgba(244,236,223,.05)"/>
-          </svg>
+        <a class="find-map" href="https://maps.google.com/?q=The+Chamber+Tea+Room+of+Matcha+Jl+Jenderal+Gatot+Subroto+15334+Pagedangan+Banten" target="_blank" rel="noopener noreferrer" aria-label="Open The Chamber Tea in Google Maps">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.0!2d106.6300!3d-6.2400!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69fb5c00000000%3A0x0!2sThe+Chamber+Tea+-+Room+of+Matcha!5e0!3m2!1sen!2sid!4v1"
+            width="100%" height="100%"
+            style="border:0;position:absolute;inset:0;width:100%;height:100%;filter:grayscale(1) invert(1) contrast(0.85) brightness(0.75);"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="The Chamber Tea location map">
+          </iframe>
           <div class="map-marker">
             <div class="pin"></div>
             <div class="lbl">The Chamber Tea</div>
           </div>
-        </div>
+          <div style="position:absolute;bottom:16px;right:16px;background:var(--cream);color:var(--ink);font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:8px 14px;border-radius:999px;display:flex;align-items:center;gap:6px;font-family:var(--sans);">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+            Open in Maps
+          </div>
+        </a>
       </div>
     </div>
   </div>
@@ -942,7 +951,7 @@ footer{
 <footer>
   <div class="foot-grid">
     <div>
-      <div class="foot-brand">The Chamber Te<span style="font-feature-settings:'liga' off">ā</span></div>
+      <div class="foot-brand">The Chamber Teā</div>
       <div class="foot-tag">A small chamber for matcha and me-time, in Gading Serpong, Tangerang. Open daily.</div>
     </div>
     <div class="foot-col">
@@ -955,25 +964,24 @@ footer{
     </div>
     <div class="foot-col">
       <h5>Visit</h5>
-      <p>Ruko Crown Golf C/23</p>
-      <p>Gading Serpong, Tangerang</p>
-      <p>Mon–Sun · 09–22</p>
+      <p>Jl. Jenderal Gatot Subroto No. 11</p>
+      <p>Pagedangan, Tangerang 15334</p>
+      <p>Mon–Sun · 09–21</p>
     </div>
     <div class="foot-col">
       <h5>Reach</h5>
-      <a href="#">+62 877 0000 0000</a>
-      <a href="#">halo@thechambertea.id</a>
+      <a href="#">+62 895 4124 14757</a>
       <a href="#">@thechambertea</a>
     </div>
   </div>
   <div class="foot-bottom">
-    <div>© 2026 The Chamber Tea · All quiet rights reserved.</div>
+    <div>© 2026 The Chamber Tea · All quiet rights reserved by worklight.id</div>
     <div class="made">A digital home, with Worklight.</div>
   </div>
 </footer>
 
 <!-- ─────────── WA float ─────────── -->
-<a href="#" class="wa" aria-label="Chat on WhatsApp">
+<a href="https://wa.me/628954124147570" class="wa" aria-label="Chat on WhatsApp" target="_blank" rel="noopener noreferrer">
   <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5A11.7 11.7 0 0 0 12 0C5.4 0 0 5.4 0 12c0 2.1.5 4.1 1.6 5.9L0 24l6.3-1.6A11.9 11.9 0 0 0 12 24c6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.5-8.5zM12 21.8a9.7 9.7 0 0 1-5-1.4l-.3-.2-3.7.9 1-3.6-.3-.4A9.7 9.7 0 0 1 2.2 12 9.8 9.8 0 0 1 12 2.2 9.8 9.8 0 0 1 21.8 12 9.8 9.8 0 0 1 12 21.8zm5.4-7.3c-.3-.2-1.8-.9-2-1s-.5-.1-.7.2-.8 1-1 1.2-.4.2-.7 0a8 8 0 0 1-2.4-1.5 9 9 0 0 1-1.6-2c-.2-.3 0-.5.1-.6l.5-.6.3-.5c.1-.2 0-.4 0-.5l-.9-2.2c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.2 3.4 5.4 4.7.7.4 1.3.6 1.8.7.7.2 1.4.2 2 .1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.6-.4z"/></svg>
   WhatsApp Us
 </a>
@@ -1042,46 +1050,75 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
 /* ───── menu data + tabs ───── */
 const MENU = {
-  signature: [
-    { name: "Hōseki Latte", desc: "Stone-ground ceremonial matcha, milk, a whisper of honey.", price: "48", tag: "House" },
-    { name: "Iced Yuzu Matcha", desc: "Cold brew matcha lifted with citrus from Kumamoto.", price: "52", tag: "Bestseller" },
-    { name: "The Chamber Brew", desc: "Slow cold-brew sencha, oak-aged 18h. Bottled.", price: "45" },
-    { name: "Matcha Soft Serve", desc: "Single-origin Uji, low sugar, pour-over style.", price: "42" },
-    { name: "Hojicha Affogato", desc: "Roasted leaf, espresso of matcha, vanilla cream.", price: "55" },
-    { name: "Sakura Lattē", desc: "Springtime only. Cherry blossom + ceremonial.", price: "48", tag: "Seasonal" },
+  matcha: [
+    { name: "Kori Matcha – Kagoshima", desc: "Umami, nutty, slightly bitter · Origin: Kagoshima, Japan", price: "", tag: "Header", header: true },
+    { name: "Usucha", desc: "Kori Kagoshima matcha, whisked thin.", price: "50" },
+    { name: "Matcha Latte", desc: "Kori Kagoshima matcha with steamed milk.", price: "56" },
+    { name: "Cold Whisk Matcha Latte", desc: "Kori Kagoshima matcha, cold whisk method.", price: "56", tag: "Bestseller" },
+    { name: "Osmanthus Matcha Latte", desc: "Floral osmanthus with Kori Kagoshima matcha latte.", price: "62", tag: "Signature" },
+    { name: "Strawberry Matcha Latte", desc: "Fresh strawberry blended with Kori Kagoshima matcha.", price: "60" },
+    { name: "Matcha Banana Pudding", desc: "Kori Kagoshima matcha layered banana pudding.", price: "68", tag: "Signature" },
+    { name: "Midori Matcha – Kagoshima", desc: "Okumidori single cultivar · Origin: Kagoshima, Japan", price: "", tag: "Header", header: true },
+    { name: "Usucha", desc: "Midori Kagoshima matcha, whisked thin.", price: "50" },
+    { name: "Matcha Latte", desc: "Midori Kagoshima matcha with steamed milk.", price: "60" },
+    { name: "Cold Whisk Matcha Latte", desc: "Midori Kagoshima matcha, cold whisk method.", price: "60", tag: "Bestseller" },
+    { name: "Gyoku Matcha – Uji", desc: "Nutty, creamy · Origin: Uji, Japan", price: "", tag: "Header", header: true },
+    { name: "Usucha", desc: "Gyoku Uji matcha, whisked thin.", price: "55" },
+    { name: "Matcha Latte", desc: "Gyoku Uji matcha with steamed milk.", price: "65", tag: "Premium" },
+    { name: "Cold Whisk Matcha Latte", desc: "Gyoku Uji matcha, cold whisk method.", price: "65" },
   ],
-  ceremonial: [
-    { name: "Usucha · Uji 1st Harvest", desc: "Thin tea, whisked in chawan, served with namagashi.", price: "65" },
-    { name: "Koicha · Wazuka Reserve", desc: "Thick tea, deep umami. For the patient.", price: "85", tag: "Reserve" },
-    { name: "Sencha Pour-Over", desc: "Three infusions, one leaf. Twenty quiet minutes.", price: "55" },
-    { name: "Gyokuro Tasting", desc: "Shade-grown leaf, low temperature, full flight.", price: "95", tag: "Flight" },
+  hojicha: [
+    { name: "Koku Hojicha – Uji", desc: "Origin: Uji, Japan", price: "", tag: "Header", header: true },
+    { name: "Dark Roast Hojicha", desc: "Deep roasted hojicha from Uji, bold and smoky.", price: "48" },
+    { name: "Medium Roast Hojicha", desc: "Balanced medium roast hojicha from Uji.", price: "48" },
+    { name: "Strawberry Hojicha", desc: "Medium roast Uji hojicha with fresh strawberry.", price: "55", tag: "Seasonal" },
   ],
-  cold: [
-    { name: "Cold Brew Matcha", desc: "12-hour steep. The drink that converts sceptics.", price: "38", tag: "Gateway" },
-    { name: "Sparkling Hojicha", desc: "Roasted tea, lightly sparkling, a wedge of yuzu.", price: "40" },
-    { name: "Genmaicha Tonic", desc: "Toasted-rice tea, dry tonic, rosemary.", price: "42" },
-    { name: "Iced Matcha Latte", desc: "Bench standard. Ceremonial grade, oat or dairy.", price: "44" },
+  food: [
+    { name: "Salt Bread", desc: "A soft, buttery bread with a lightly salty crust, crispy outside and fluffy inside.", price: "", tag: "Header", header: true },
+    { name: "Original Salt Bread", desc: "Classic house-baked salt bread.", price: "23" },
+    { name: "Cinnamon Cookies Salt Bread", desc: "Salt bread with cinnamon cookie topping.", price: "36" },
+    { name: "Chicken Floss Salt Bread", desc: "Salt bread topped with savoury chicken floss.", price: "36" },
+    { name: "Tiramisu", desc: "An Italian dessert made with coffee-soaked ladyfingers.", price: "", tag: "Header", header: true },
+    { name: "Matcha Tiramisu", desc: "Classic tiramisu with ceremonial matcha.", price: "45", tag: "Signature" },
+    { name: "Hojicha Tiramisu", desc: "Classic tiramisu layered with roasted hojicha.", price: "40" },
+    { name: "Poffertjes", desc: "Dutch mini pancakes, served with butter and powdered sugar.", price: "", tag: "Header", header: true },
+    { name: "Poffertjes Butter", desc: "Classic Dutch mini pancakes with butter.", price: "30" },
+    { name: "Poffertjes Butter Strawberry", desc: "Dutch mini pancakes with butter and fresh strawberry.", price: "36" },
+    { name: "Banana Bread Pudding", desc: "A rich, creamy layered dessert with vanilla pudding, fresh bananas, crumbs.", price: "", tag: "Header", header: true },
+    { name: "Banana Bread Pudding", desc: "Classic banana bread pudding, warm and creamy.", price: "25" },
+    { name: "Banana Bread Pudding Strawberry", desc: "Banana bread pudding with fresh strawberry.", price: "31" },
   ],
-  pastry: [
-    { name: "Matcha Basque", desc: "Burnt cheesecake, ceremonial-grade folded in.", price: "55" },
-    { name: "Hojicha Canelé", desc: "Caramelised crust, roasted-tea custard.", price: "32" },
-    { name: "Yuzu Madeleine", desc: "Buttery, citrus glaze. Served warm.", price: "28" },
-    { name: "Black Sesame Cookie", desc: "Soft centre, toasted edge. House-baked.", price: "26" },
+  other: [
+    { name: "Coffee", desc: "", price: "", tag: "Header", header: true },
+    { name: "Iced Americano", desc: "Cold espresso with water, clean and bold.", price: "30" },
+    { name: "Iced Coffee Latte", desc: "Espresso with cold milk, smooth and balanced.", price: "35" },
+    { name: "Mineral Water", desc: "", price: "", tag: "Header", header: true },
+    { name: "Mineral Water", desc: "Still mineral water.", price: "8" },
   ],
 };
 const menuList = document.getElementById('menuList');
 function renderMenu(cat){
-  menuList.innerHTML = MENU[cat].map(item => `
-    <div class="menu-item">
-      <div>
-        <div class="name">${item.name}${item.tag?`<span class="menu-tag">${item.tag}</span>`:''}</div>
-        <div class="desc">${item.desc}</div>
-      </div>
-      <div class="price"><span class="sm">IDR</span>${item.price}<span class="sm">k</span></div>
-    </div>
-  `).join('');
+  menuList.innerHTML = MENU[cat].map(item => {
+    if (item.header) {
+      return `
+        <div class="menu-item" style="grid-column:1/-1;border-bottom:none;padding-bottom:4px;padding-top:36px;">
+          <div>
+            <div class="name" style="font-size:20px;color:var(--ink-soft)">${item.name}</div>
+            ${item.desc ? `<div class="desc">${item.desc}</div>` : ''}
+          </div>
+        </div>`;
+    }
+    return `
+      <div class="menu-item">
+        <div>
+          <div class="name">${item.name}${item.tag && !item.header ? `<span class="menu-tag">${item.tag}</span>` : ''}</div>
+          ${item.desc ? `<div class="desc">${item.desc}</div>` : ''}
+        </div>
+        <div class="price"><span class="sm">IDR</span>${item.price}<span class="sm">k</span></div>
+      </div>`;
+  }).join('');
 }
-renderMenu('signature');
+renderMenu('matcha');
 document.querySelectorAll('#menuTabs .menu-tab').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('#menuTabs .menu-tab').forEach(b => b.classList.remove('active'));
@@ -1101,13 +1138,13 @@ function applyTweaks(){
     const r = Math.max(0, ((n>>16)&255) - amt*255)|0;
     const g = Math.max(0, ((n>>8)&255) - amt*255)|0;
     const b = Math.max(0, (n&255) - amt*255)|0;
-    return `#${(r<<16|g<<8|b).toString(16).padStart(6,'0')}`;
+    return '#' + (r<<16|g<<8|b).toString(16).padStart(6,'0');
   };
   document.documentElement.style.setProperty('--matcha-deep', darken(tweaksState.accent, .18));
   document.documentElement.style.setProperty('--cream', tweaksState.surface);
   document.documentElement.style.setProperty('--cream-deep', tweaksState.surfaceDeep || '#ECE1CC');
   document.documentElement.style.setProperty('--cream-warm', tweaksState.surfaceWarm || '#E7DAC0');
-  document.querySelectorAll('.serif, .hero-title, h2, h3, .about-quote, .about-text p.lead, .menu-item .name, .stat .k, .find-card h4, .cta-strip h2, .foot-brand').forEach(el=>{
+  document.querySelectorAll('.serif, .hero-title, h2, h3, .about-quote, .about-text p.lead, .menu-item .name, .stat .k, .find-card h4, .cta-strip h2, .foot-brand').forEach(el => {
     el.style.fontWeight = tweaksState.displayWeight;
   });
 }
